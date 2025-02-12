@@ -4,7 +4,6 @@
 #include <fstream>
 #include <string>
 
-#include "console.h"
 #include "template_genorator.h"
 
 std::string LOGO = R"(
@@ -19,7 +18,7 @@ ________/\\\\\\\\\________________________________________/\\\\\\\\\\\\\_______/
         _______\/////////________________________________________\///_______________\////////////____
 )";
 
-#define VERSION "0.4.4"
+#define VERSION "0.5.0a"
 
 #ifdef DEBUG
     std::string TITLE = "C++ Project Genrator\nDEBUG: v" + 
@@ -31,23 +30,27 @@ ________/\\\\\\\\\________________________________________/\\\\\\\\\\\\\_______/
 
 int main(int argc, char *argv[])
 {
-    Console console;
+    std::cout << LOGO << std::endl;
+    std::cout << TITLE << std::endl;
 
-    console.print(LOGO, COLOR::BLUE);
-    console.print(TITLE, COLOR::GREEN);
-
-    console.print("Enter project name", COLOR::WHITE);
+    std::cout << "Enter project name" << std::endl;
     std::string name;
     std::getline(std::cin, name);
 
-    std::string projectOptions[2] = { "Executable", "DLL" };
-    int result = console.menu(2, projectOptions, "Project Type?");
+    std::cout << "Project Types [EXE, DLL]" << std::endl;
+    std::string result;
+    std::getline(std::cin, result);
 
-    std::string versionOptions[6] = { "C++98", "C++03", "C++11", "C++14", "C++17", "C++20" };
-    int version = console.menu(6, versionOptions, "C++ Version?");
+    int type = result == "EXE" ? 0 : 1;
 
-    console.print("Making project...", COLOR::WHITE);
-    MakeProgramFiles(name, result, version);
+    std::cout << "C++ Version [89, 03, 11, 14, 17, 20]" << std::endl;
+    std::string version;
+    std::getline(std::cin, version);
+
+    int cpp_version = std::stoi(version);
+
+    std::cout << "Making project..." << std::endl;
+    MakeProgramFiles(name, type, cpp_version);
 
     return EXIT_SUCCESS;
 }

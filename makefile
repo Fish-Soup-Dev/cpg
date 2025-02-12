@@ -1,6 +1,5 @@
 CXX = g++
 BUILD ?= DEBUG
-MAIN = $(BINDIR)/CPPG.exe
 CFLAGS = -std=c++17 -static
 LIBS =
 DEFS = 
@@ -13,6 +12,12 @@ OBJDIR = ./obj/$(BUILD)
 BINDIR = ./bin/$(BUILD)
 
 OBJS = $(patsubst %.cpp, $(OBJDIR)/%.o, $(notdir $(SRCS)))
+
+ifeq ($(OS),Windows_NT)
+    MAIN = $(BINDIR)/CPPG.exe
+else
+    MAIN = $(BINDIR)/CPPG
+endif
 
 ifeq ($(BUILD),DEBUG)
     CFLAGS += -g -Wall -DDEBUG

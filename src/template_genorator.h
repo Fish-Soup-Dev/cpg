@@ -54,7 +54,6 @@ std::string basicMakefile(std::string name, std::string version)
     return
 R"(CXX = g++
 BUILD ?= DEBUG
-MAIN = bin/)" + name + R"(.exe
 CFLAGS = )" + version + R"(
 LIBS =
 DEFS = 
@@ -67,6 +66,12 @@ OBJDIR = ./obj
 BINDIR = ./bin
 
 OBJS = $(patsubst %.cpp, $(OBJDIR)/%.o, $(notdir $(SRCS)))
+
+ifeq ($(OS),Windows_NT)
+    MAIN = $(BINDIR)/)" + name + R"(.exe
+else
+    MAIN = $(BINDIR)/)" + name + R"(
+endif
 
 ifeq ($(BUILD),DEBUG)
 	CFLAGS += -g -Wall -DDEBUG
