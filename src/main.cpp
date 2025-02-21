@@ -6,7 +6,7 @@
 
 #include "template_genorator.h"
 
-#define VERSION "0.5.1"
+#define VERSION "0.5.2"
 
 #ifdef DEBUG
     std::string TITLE = "C++ Project Genrator\nDEBUG: v" + 
