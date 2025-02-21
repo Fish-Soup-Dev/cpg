@@ -181,22 +181,22 @@ void MakeProgramFiles(std::string name, int type, int version)
 
     switch (version)
     {
-    case 0:
+    case 98:
         versionName = "-std=c++98";
         break;
-    case 1:
+    case 3:
         versionName = "-std=c++03";
         break;
-    case 2:
+    case 11:
         versionName = "-std=c++11";
         break;
-    case 3:
+    case 14:
         versionName = "-std=c++14";
         break;
-    case 4:
+    case 17:
         versionName = "-std=c++17";
         break;
-    case 5:
+    case 20:
         versionName = "-std=c++20";
         break;
     }
