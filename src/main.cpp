@@ -6,7 +6,7 @@
 
 #include "template_genorator.h"
 
-#define VERSION "0.5.3"
+#define VERSION "0.5.4"
 
 #ifdef DEBUG
     std::string TITLE = "C++ Project Genrator\nDEBUG: v" + 
@@ -24,11 +24,11 @@ int main(int argc, char *argv[])
     std::string name;
     std::getline(std::cin, name);
 
-    std::cout << "Project Types [EXE, DLL]" << std::endl;
+    std::cout << "Project Types [exe, dll]" << std::endl;
     std::string result;
     std::getline(std::cin, result);
 
-    int type = result == "EXE" ? 0 : 1;
+    int type = result == "exe" ? 0 : 1;
 
     std::cout << "Project Build Types [make, cpb]" << std::endl;
     std::string build;
