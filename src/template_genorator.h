@@ -148,7 +148,67 @@ release:
 	@$(MAKE) BUILD=RELEASE)";
 }
 
-void MakeProgramFiles(std::string name, int type, int version)
+std::string basicBuildfile(std::string name, std::string version)
+{
+    return
+R"([project]
+name = ")" + name + R"("
+type = "executable"
+
+[compiler]
+cc = "g++"
+ldflags = []
+libs = []
+
+[compiler.release]
+cflags = [")" + version + R"(", "-O2"]
+cdefs = ["-DNDEBUG"]
+
+[compiler.debug]
+cflags = [")" + version + R"(", "-g", "-Wall"]
+cdefs = ["DDEBUG"]
+
+[paths]
+src = "./src"
+include = "./include"
+lib = "./lib"
+bin = "./bin"
+obj = "./obj"
+
+)";
+}
+
+// std::string dllBuildfile(std::string name, std::string version)
+// {
+//     return
+// R"([project]
+// name = )" + name + R"(
+// type = "executable"
+
+// [compiler]
+// cc = "g++"
+// ldflags = []
+// libs = []
+
+// [compiler.release]
+// cflags = [")" + version + R"(", "-O2"]
+// cdefs = ["-DNDEBUG"]
+
+// [compiler.debug]
+// cflags = [")" + version + R"(", "-g", "-Wall"]
+// cdefs = ["DDEBUG"]
+
+// [paths]
+// src = "./src"
+// include = "./include"
+// lib = "./lib"
+// bin = "./bin"
+// obj = "./obj"
+
+// )";
+// }
+
+void MakeProgramFiles(std::string name, int type, int mType, int version)
 {
     std::string project_path = "./" + name;
     std::filesystem::create_directory(project_path);
@@ -201,14 +261,29 @@ void MakeProgramFiles(std::string name, int type, int version)
         break;
     }
 
-    std::ofstream makeFile(project_path + "/makefile");
+    if (mType == 0)
+    {
+        std::ofstream makeFile(project_path + "/makefile");
 
-    if (type == 0)
-        makeFile << basicMakefile(name, versionName);
-    else if (type == 1)
-        makeFile << dllMakefile(name, versionName);
+        if (type == 0)
+            makeFile << basicMakefile(name, versionName);
+        else if (type == 1)
+            makeFile << dllMakefile(name, versionName);
 
-    makeFile.close();
+        makeFile.close();
+    }
+    else
+    {
+        std::ofstream buildFile(project_path + "/build.toml");
+
+        if (type == 0)
+            buildFile << basicBuildfile(name, versionName);
+        else if (type == 1)
+            std::cout << "not implmented yet" << std::endl;
+            //buildFile << dllBuildfile(name, versionName);
+
+        buildFile.close();
+    }
 }
 
 #endif

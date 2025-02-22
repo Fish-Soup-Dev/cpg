@@ -6,7 +6,7 @@
 
 #include "template_genorator.h"
 
-#define VERSION "0.5.2"
+#define VERSION "0.5.3"
 
 #ifdef DEBUG
     std::string TITLE = "C++ Project Genrator\nDEBUG: v" + 
@@ -30,6 +30,12 @@ int main(int argc, char *argv[])
 
     int type = result == "EXE" ? 0 : 1;
 
+    std::cout << "Project Build Types [make, cpb]" << std::endl;
+    std::string build;
+    std::getline(std::cin, build);
+
+    int bType = build == "make" ? 0 : 1;
+
     std::cout << "C++ Version [89, 03, 11, 14, 17, 20]" << std::endl;
     std::string version;
     std::getline(std::cin, version);
@@ -37,7 +43,7 @@ int main(int argc, char *argv[])
     int cpp_version = std::stoi(version);
 
     std::cout << "Making project..." << std::endl;
-    MakeProgramFiles(name, type, cpp_version);
+    MakeProgramFiles(name, type, bType, cpp_version);
     std::cout << "Project created" << std::endl;
 
     return EXIT_SUCCESS;
