@@ -11,9 +11,7 @@ Simple command-line tool for creating c++ projects with full folder structure an
 ## Uesage
 Example Screenshot
 
-windows
 ![Screenshot](assets/screenshotWindows.png)
 
-linux
 ![Screenshot](assets/screenshotLinux.png)
 
