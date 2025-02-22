@@ -1,7 +1,9 @@
+#ifndef TEMPLATE_GENORATOR_H
 #define TEMPLATE_GENORATOR_H
-#ifdef TEMPLATE_GENORATOR_H
 
 #include <string>
+#include <iostream>
+#include "color.hpp"
 
 std::string emptyMainFile()
 {
@@ -166,7 +168,7 @@ cdefs = ["-DNDEBUG"]
 
 [compiler.debug]
 cflags = [")" + version + R"(", "-g", "-Wall"]
-cdefs = ["DDEBUG"]
+cdefs = ["-DDEBUG"]
 
 [paths]
 src = "./src"
@@ -211,6 +213,9 @@ obj = "./obj"
 void MakeProgramFiles(std::string name, int type, int mType, int version)
 {
     std::string project_path = "./" + name;
+
+    std::cout << color(Green) << "Maing template at " << project_path << std::endl;
+
     std::filesystem::create_directory(project_path);
     std::filesystem::create_directory(project_path + "/src");
     std::filesystem::create_directory(project_path + "/lib");
@@ -235,7 +240,6 @@ void MakeProgramFiles(std::string name, int type, int mType, int version)
         mainDllFile << emptyDllMainFile(name);
         mainDllFile.close();
     }
-
 
     std::string versionName;
 
@@ -284,6 +288,8 @@ void MakeProgramFiles(std::string name, int type, int mType, int version)
 
         buildFile.close();
     }
+
+    std::cout << color(Green) << "Done." << color(Defult) << std::endl;
 }
 
 #endif
