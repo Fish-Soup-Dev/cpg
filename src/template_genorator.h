@@ -184,7 +184,7 @@ std::string dllBuildfile(std::string name, std::string version)
 {
     return
 R"([project]
-name = )" + name + R"(
+name = ")" + name + R"("
 type = "dll"
 
 [compiler]
