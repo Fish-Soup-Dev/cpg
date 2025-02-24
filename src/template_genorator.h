@@ -163,7 +163,7 @@ ldflags = []
 libs = []
 
 [compiler.release]
-cflags = [")" + version + R"("-static, "-O2"]
+cflags = [")" + version + R"(", "-O2", "-static"]
 cdefs = ["-DNDEBUG"]
 
 [compiler.debug]
