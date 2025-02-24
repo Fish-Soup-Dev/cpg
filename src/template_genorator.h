@@ -198,7 +198,7 @@ cdefs = ["-DNDEBUG", "-DBUILD_DLL"]
 
 [compiler.debug]
 cflags = [")" + version + R"(", "-shared", "-g", "-Wall"]
-cdefs = ["DDEBUG", "-DBUILD_DLL"]
+cdefs = ["-DDEBUG", "-DBUILD_DLL"]
 
 [paths]
 src = "./src"
