@@ -8,7 +8,7 @@
 #include "template_genorator.h"
 #include "color.hpp"
 
-#define VERSION "0.5.7"
+#define VERSION "0.5.8"
 
 void genorate()
 {
