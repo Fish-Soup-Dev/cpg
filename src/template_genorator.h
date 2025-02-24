@@ -51,6 +51,22 @@ R"(#include ")" + name + R"(.h"
 )";
 }
 
+std::string emptyLibHeadderFile(std::string name)
+{
+	return
+R"(#ifndef )" + name + R"(_HPP
+#define )" + name + R"(_HPP
+
+#endif)";
+}
+
+std::string emptyLibMainFile(std::string name)
+{
+	return
+R"(#include ")" + name + R"(.h"
+)";
+}
+
 std::string basicMakefile(std::string name, std::string version)
 {
     return
@@ -210,6 +226,36 @@ obj = "./obj"
 )";
 }
 
+std::string libBuildfile(std::string name, std::string version)
+{
+    return
+R"([project]
+name = ")" + name + R"("
+type = "lib"
+
+[compiler]
+cc = "g++"
+ldflags = []
+libs = []
+
+[compiler.release]
+cflags = [")" + version + R"(", "-O2"]
+cdefs = ["-DNDEBUG"]
+
+[compiler.debug]
+cflags = [")" + version + R"(", "-g", "-Wall"]
+cdefs = ["-DDEBUG"]
+
+[paths]
+src = "./src"
+include = "./include"
+lib = "./lib"
+bin = "./bin"
+obj = "./obj"
+
+)";
+}
+
 void MakeProgramFiles(std::string name, int type, int mType, int version)
 {
     std::string project_path = "./" + name;
@@ -239,6 +285,19 @@ void MakeProgramFiles(std::string name, int type, int mType, int version)
         std::ofstream mainDllFile(project_path + "/src/" + name +".cpp");
         mainDllFile << emptyDllMainFile(name);
         mainDllFile.close();
+    }
+    else
+    {
+        std::string nameupper = name;
+        std::transform(nameupper.begin(), nameupper.end(), nameupper.begin(), ::toupper);
+
+        std::ofstream headderLibFile(project_path + "/src/" + name + ".h");
+        headderLibFile << emptyLibHeadderFile(nameupper);
+        headderLibFile.close();
+
+        std::ofstream mainLibFile(project_path + "/src/" + name +".cpp");
+        mainLibFile << emptyLibMainFile(name);
+        mainLibFile.close();
     }
 
     std::string versionName;
@@ -284,6 +343,8 @@ void MakeProgramFiles(std::string name, int type, int mType, int version)
             buildFile << basicBuildfile(name, versionName);
         else if (type == 1)
             buildFile << dllBuildfile(name, versionName);
+        else
+            buildFile << libBuildfile(name, versionName);
 
         buildFile.close();
     }
