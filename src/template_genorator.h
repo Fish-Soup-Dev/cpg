@@ -180,35 +180,35 @@ obj = "./obj"
 )";
 }
 
-// std::string dllBuildfile(std::string name, std::string version)
-// {
-//     return
-// R"([project]
-// name = )" + name + R"(
-// type = "executable"
+std::string dllBuildfile(std::string name, std::string version)
+{
+    return
+R"([project]
+name = )" + name + R"(
+type = "dll"
 
-// [compiler]
-// cc = "g++"
-// ldflags = []
-// libs = []
+[compiler]
+cc = "g++"
+ldflags = []
+libs = []
 
-// [compiler.release]
-// cflags = [")" + version + R"(", "-O2"]
-// cdefs = ["-DNDEBUG"]
+[compiler.release]
+cflags = [")" + version + R"(", "-shared", "-O2"]
+cdefs = ["-DNDEBUG", "-DBUILD_DLL"]
 
-// [compiler.debug]
-// cflags = [")" + version + R"(", "-g", "-Wall"]
-// cdefs = ["DDEBUG"]
+[compiler.debug]
+cflags = [")" + version + R"(", "-shared", "-g", "-Wall"]
+cdefs = ["DDEBUG", "-DBUILD_DLL"]
 
-// [paths]
-// src = "./src"
-// include = "./include"
-// lib = "./lib"
-// bin = "./bin"
-// obj = "./obj"
+[paths]
+src = "./src"
+include = "./include"
+lib = "./lib"
+bin = "./bin"
+obj = "./obj"
 
-// )";
-// }
+)";
+}
 
 void MakeProgramFiles(std::string name, int type, int mType, int version)
 {
@@ -283,8 +283,7 @@ void MakeProgramFiles(std::string name, int type, int mType, int version)
         if (type == 0)
             buildFile << basicBuildfile(name, versionName);
         else if (type == 1)
-            std::cout << "not implmented yet" << std::endl;
-            //buildFile << dllBuildfile(name, versionName);
+            buildFile << dllBuildfile(name, versionName);
 
         buildFile.close();
     }
