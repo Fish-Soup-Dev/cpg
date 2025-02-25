@@ -278,7 +278,7 @@ void MakeProgramFiles(std::string name, int type, int mType, int version)
         std::string nameupper = name;
         std::transform(nameupper.begin(), nameupper.end(), nameupper.begin(), ::toupper);
 
-        std::ofstream headderDllFile(project_path + "/src/" + name + ".h");
+        std::ofstream headderDllFile(project_path + "/include/" + name + ".h");
         headderDllFile << emptyDllHeadderFile(nameupper);
         headderDllFile.close();
 
@@ -291,7 +291,7 @@ void MakeProgramFiles(std::string name, int type, int mType, int version)
         std::string nameupper = name;
         std::transform(nameupper.begin(), nameupper.end(), nameupper.begin(), ::toupper);
 
-        std::ofstream headderLibFile(project_path + "/src/" + name + ".h");
+        std::ofstream headderLibFile(project_path + "/include/" + name + ".h");
         headderLibFile << emptyLibHeadderFile(nameupper);
         headderLibFile.close();
 
